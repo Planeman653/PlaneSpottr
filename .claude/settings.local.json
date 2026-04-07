@@ -35,7 +35,9 @@
       "Bash(curl -s \"https://pypi.org/pypi/pynavdata/json\")",
       "WebSearch",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(rmdir /s /q dist)",
+      "Bash(rmdir /s /q build)"
     ]
   }
 }
