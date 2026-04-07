@@ -14,7 +14,13 @@
       "Bash(copy \".env.example\" \"dist\\\\.env.example\")",
       "Bash(copy \"LICENSE\" \"dist\\\\LICENSE\")",
       "Bash(copy \"USER_GUIDE.md\" \"dist\\\\USER_GUIDE.md\")",
-      "Bash(rd /s /q \"C:\\\\Users\\\\james\\\\Desktop\\\\Coding\\\\Projects\\\\PlaneSpottr\\\\build\")"
+      "Bash(rd /s /q \"C:\\\\Users\\\\james\\\\Desktop\\\\Coding\\\\Projects\\\\PlaneSpottr\\\\build\")",
+      "Bash(git tag:*)",
+      "Bash(git push:*)",
+      "Bash(copy \"dist\\\\PlaneSpottr.exe\" \"release\\\\PlaneSpottr.exe\")",
+      "Bash(ls .release*)",
+      "Bash(dir dist:*)",
+      "Bash(gh release:*)"
     ]
   }
 }
