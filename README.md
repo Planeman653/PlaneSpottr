@@ -2,6 +2,12 @@
 
 Flight tracker desktop application that displays real-time flight information from the FlightAware API.
 
+## Latest Updates (v0.1.2)
+
+- ✅ Fixed `pynavdata` → `onavdata` dependency issue
+- ✅ Fixed `QSettings` import issue for PyQt6 compatibility
+- ✅ Fixed `flightaware` module import path
+
 ## Features
 
 - Displays nearby flights within a configurable radius

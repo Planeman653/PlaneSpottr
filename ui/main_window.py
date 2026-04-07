@@ -7,11 +7,54 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from PyQt6.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton,
     QScrollArea, QFrame, QGridLayout, QToolBar, QStatusBar, QComboBox,
-    QSettings, QDialog, QFormLayout, QLineEdit, QSpinBox,
+    QDialog, QFormLayout, QLineEdit, QSpinBox,
 )
+import json
+import os
+
+
+class Settings:
+    """Simple settings manager using JSON file."""
+
+    def __init__(self):
+        self._settings = {}
+        self._config_path = os.path.join(os.path.dirname(__file__), '..', '..', 'settings.json')
+        self._load()
+
+    def _load(self):
+        """Load settings from file."""
+        if os.path.exists(self._config_path):
+            try:
+                with open(self._config_path, 'r') as f:
+                    self._settings = json.load(f)
+            except (json.JSONDecodeError, IOError):
+                pass
+
+    def _save(self):
+        """Save settings to file."""
+        try:
+            with open(self._config_path, 'w') as f:
+                json.dump(self._settings, f, indent=2)
+        except IOError:
+            pass
+
+    def value(self, key, default=None):
+        """Get setting value."""
+        return self._settings.get(key, default)
+
+    def setValue(self, key, value):
+        """Set setting value."""
+        self._settings[key] = value
+        self._save()
+
+    def __repr__(self):
+        return f"Settings({self._settings!r})"
+
+
+QSettings = Settings  # For compatibility
 from PyQt6.QtGui import QAction, QKeySequence, QFont, QPixmap
 from PyQt6.QtCore import Qt, QTimer
-from flightaware import FlightAwareAPI
+from api.flightaware import FlightAwareAPI
 from models.flight import Flight
 from ui.flight_widget import FlightWidget
 
