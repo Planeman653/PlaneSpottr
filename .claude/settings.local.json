@@ -27,7 +27,15 @@
       "Bash(\"C:\\\\Users\\\\james\\\\Desktop\\\\Coding\\\\Projects\\\\PlaneSpottr\\\\.venv\\\\Scripts\\\\pyinstaller\" PlaneSpottr.spec)",
       "Bash(C:\\\\Users\\\\james\\\\Desktop\\\\Coding\\\\Projects\\\\PlaneSpottr\\\\.venv\\\\Scripts\\\\pyinstaller:*)",
       "Bash(dir \"dist\\\\PlaneSpottr.exe\" /b)",
-      "Bash(dir \"release\\\\*\" /b)"
+      "Bash(dir \"release\\\\*\" /b)",
+      "Bash(pip search:*)",
+      "Bash(pip index:*)",
+      "Bash(pip install:*)",
+      "Bash(curl -s \"https://pypi.org/search/?q=pynavdata\")",
+      "Bash(curl -s \"https://pypi.org/pypi/pynavdata/json\")",
+      "WebSearch",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
