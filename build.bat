@@ -23,7 +23,7 @@ REM Clean previous build
 if exist "build" rmdir /s /q "build"
 if exist "dist" rmdir /s /q "dist"
 
-echo Building PlaneSpottr.exe...
+echo [INFO] Building PlaneSpottr.exe...
 echo.
 
 REM Build with PyInstaller
@@ -50,9 +50,39 @@ echo.
 echo Your executable is at:
 echo   %CD%\dist\PlaneSpottr.exe
 echo.
-echo You can now:
+echo File size: %~z0 bytes
+echo.
+echo To run:
 echo   1. Double-click dist\PlaneSpottr.exe
-echo   2. Or distribute the file to others
+echo   2. Make sure .env file with API key exists
 echo.
 echo =========================================
+echo.
+
+REM Copy README and other files to dist
+if exist "README.md" (
+    copy "README.md" "dist\README.md"
+)
+if exist ".env.example" (
+    copy ".env.example" "dist\.env.example"
+)
+if exist "CHANGELOG.md" (
+    copy "CHANGELOG.md" "dist\CHANGELOG.md"
+)
+if exist "LICENSE" (
+    copy "LICENSE" "dist\LICENSE"
+)
+if exist "USER_GUIDE.md" (
+    copy "USER_GUIDE.md" "dist\USER_GUIDE.md"
+)
+if exist "INSTALLER_README.md" (
+    copy "INSTALLER_README.md" "dist\INSTALLER_README.md"
+)
+
+echo Documentation copied to dist folder
+echo.
+echo To create a release:
+echo   1. Edit dist\README.md with your release notes
+echo   2. Upload to GitHub Releases page
+echo.
 pause

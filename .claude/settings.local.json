@@ -20,7 +20,14 @@
       "Bash(copy \"dist\\\\PlaneSpottr.exe\" \"release\\\\PlaneSpottr.exe\")",
       "Bash(ls .release*)",
       "Bash(dir dist:*)",
-      "Bash(gh release:*)"
+      "Bash(gh release:*)",
+      "Bash(pyinstaller:*)",
+      "Bash(.venv\\\\Scripts\\\\pyinstaller:*)",
+      "Bash(rmdir /s /q \"C:\\\\Users\\\\james\\\\Desktop\\\\Coding\\\\Projects\\\\PlaneSpottr\\\\dist\")",
+      "Bash(\"C:\\\\Users\\\\james\\\\Desktop\\\\Coding\\\\Projects\\\\PlaneSpottr\\\\.venv\\\\Scripts\\\\pyinstaller\" PlaneSpottr.spec)",
+      "Bash(C:\\\\Users\\\\james\\\\Desktop\\\\Coding\\\\Projects\\\\PlaneSpottr\\\\.venv\\\\Scripts\\\\pyinstaller:*)",
+      "Bash(dir \"dist\\\\PlaneSpottr.exe\" /b)",
+      "Bash(dir \"release\\\\*\" /b)"
     ]
   }
 }
