@@ -1,7 +1,20 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(dir /b C:\\\\Users\\\\james\\\\Desktop\\\\Coding\\\\Projects\\\\PlaneSpottr\\\\*.bat C:\\\\Users\\\\james\\\\Desktop\\\\Coding\\\\Projects\\\\PlaneSpottr\\\\*.spec C:\\\\Users\\\\james\\\\Desktop\\\\Coding\\\\Projects\\\\PlaneSpottr\\\\*.md)",
+      "Bash(findstr /V \".venv\")",
+      "Bash(del C:\\\\Users\\\\james\\\\Desktop\\\\Coding\\\\Projects\\\\PlaneSpottr\\\\build_exe.bat C:\\\\Users\\\\james\\\\Desktop\\\\Coding\\\\Projects\\\\PlaneSpottr\\\\build_installer.bat C:\\\\Users\\\\james\\\\Desktop\\\\Coding\\\\Projects\\\\PlaneSpottr\\\\build_nsis.bat C:\\\\Users\\\\james\\\\Desktop\\\\Coding\\\\Projects\\\\PlaneSpottr\\\\create_exe.bat)",
+      "Bash(del:*)",
+      "Bash(.venv\\\\Scripts\\\\python:*)",
+      "Bash(\".venv\\\\Scripts\\\\python\" -m pip show pyinstaller)",
+      "Bash(build.bat:*)",
+      "Bash(dir \"dist\\\\PlaneSpottr.exe\")",
+      "Bash(copy \"README.md\" \"dist\\\\README.md\")",
+      "Bash(copy \".env.example\" \"dist\\\\.env.example\")",
+      "Bash(copy \"LICENSE\" \"dist\\\\LICENSE\")",
+      "Bash(copy \"USER_GUIDE.md\" \"dist\\\\USER_GUIDE.md\")",
+      "Bash(rd /s /q \"C:\\\\Users\\\\james\\\\Desktop\\\\Coding\\\\Projects\\\\PlaneSpottr\\\\build\")"
     ]
   }
 }

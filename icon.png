@@ -1,0 +1,7 @@
+PLACEHOLDER_ICON
+
+To create a proper icon:
+1. Create a 256x256 PNG image with your design
+2. Convert to .ico format using an online converter or GIMP
+3. Replace this file with your custom icon
+4. Update the PyInstaller command with --icon=icon.ico
