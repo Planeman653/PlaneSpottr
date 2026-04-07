@@ -5,8 +5,9 @@ Flight tracker desktop application that displays real-time flight information fr
 ## Latest Updates (v0.1.2)
 
 - ✅ Fixed `pynavdata` → `onavdata` dependency issue
-- ✅ Fixed `QSettings` import issue for PyQt6 compatibility
+- ✅ Fixed `QSettings` import issue for PyQt6 compatibility  
 - ✅ Fixed `flightaware` module import path
+- ✅ Added setup dialog for API key on first run
 
 ## Features
 
@@ -16,71 +17,44 @@ Flight tracker desktop application that displays real-time flight information fr
 - Configurable search radius and refresh interval
 - Dark theme for comfortable viewing
 
-## ⚠️ IMPORTANT: Setup Required Before Running
+## Getting Started
 
-The app requires a FlightAware API key. Without it, you'll see:
-```
-ModuleNotFoundError: No module named 'PyQt6'
-```
+### ⚡ Quick Start (5 minutes)
 
-### Getting Your Free API Key (5 minutes)
+1. **Get a free API key** from [FlightAware Developer](https://flightaware.com/help/development/get-key)
+2. **Download** `PlaneSpottr.exe` (from releases or build locally)
+3. **Run** `PlaneSpottr.exe`
+4. **Enter your API key** in the setup dialog
+5. **Track flights!**
 
-1. Go to: **https://flightaware.com/help/development/get-key**
-2. Click "Get Key" and complete the quick registration
-3. Copy your API key (it's a long string of characters)
-
-### Setting Up the API Key
-
-**For the .exe Application:**
-
-1. Copy `.env.example` to `.env`
-   ```
-   copy .env.example .env
-   ```
-
-2. Edit `.env` and add your API key:
-   ```
-   FLIGHTAWARE_API_KEY=your_actual_api_key_here
-   ```
-
-3. Run the app:
-   ```
-   PlaneSpottr.exe
-   ```
-
-**For Source Code:**
-
-1. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-2. Create `.env` file with API key
-
-3. Run:
-   ```bash
-   python main.py
-   ```
-
-## Build the .exe
+## Build the .exe (Developer)
 
 ```bash
 # Install dependencies
-pip install pyinstaller PyQt6
+pip install -r requirements.txt
 
 # Build the executable
-pyinstaller --clean --onefile --windowed --name=PlaneSpottr main.py
-
-# OR run the build script
-build.bat
+python build.py
+# OR manually:
+pyinstaller --onefile --windowed --name=PlaneSpottr --add-data ".env.example;." main.py
 ```
 
-Output: `dist/PlaneSpottr.exe` (8.4 MB)
+Output: `dist/PlaneSpottr.exe` (~8-12 MB)
 
 ## Usage
 
+### First Time - Setup Dialog
+
+1. **Download and run** `PlaneSpottr.exe`
+2. **On first run**, a setup dialog will appear
+3. **Enter your FlightAware API key** (see [Getting Started](#getting-started-quick-start-5-minutes) above)
+4. Click "Save and Start"
+5. **The key is saved** for all future runs - no need to re-enter!
+
+### After Setup
+
 - **Ctrl+R**: Refresh flight list
-- **Ctrl+,**: Open settings dialog
+- **Ctrl+,**: Open settings dialog  
 - Adjust search radius from the toolbar
 - Flights auto-refresh based on settings interval
 
@@ -88,13 +62,18 @@ Output: `dist/PlaneSpottr.exe` (8.4 MB)
 
 ### "No module named 'PyQt6'" Error
 
-This happens when the `.env` file is missing. Make sure:
+This means the app needs its dependencies installed. Rebuild with:
 
-1. The `.env` file exists in the same folder as `PlaneSpottr.exe`
-2. Your API key is correctly set:
-   ```
-   FLIGHTAWARE_API_KEY=your_actual_api_key_here
-   ```
+```bash
+pip install pyinstaller PyQt6 requests pandas numpy onavdata
+python build.py
+```
+
+### Need API Key?
+
+1. Get free key from [FlightAware Developer](https://flightaware.com/help/development/get-key)
+2. First run will show setup dialog
+3. Enter your API key and click "Save"
 
 ### API Key Not Working
 
@@ -104,22 +83,15 @@ This happens when the `.env` file is missing. Make sure:
 
 ### App Won't Start
 
-- Check that `.env` file exists
+- Check that `.env` file exists (created automatically on first run)
 - Verify your API key is valid
 - Make sure you're in the folder with `PlaneSpottr.exe`
-
-## Keyboard Shortcuts
-
-| Shortcut | Action |
-|----------|--------|
-| Ctrl+R   | Refresh flight list |
-| Ctrl+,   | Open settings |
 
 ## Settings
 
 Access settings with `Ctrl+,` to configure:
 - Search radius
-- Refresh interval
+- Refresh interval  
 - Other preferences
 
 ## API Rate Limiting
@@ -133,16 +105,17 @@ The application implements rate limiting to stay within the FlightAware free tie
 
 ```
 PlaneSpottr/
-├── build.bat           # Build script
-├── main.py             # Application entry point
-├── config.py           # Configuration settings
-├── requirements.txt    # Python dependencies
-├── .env.example        # Template - COPY TO .env
-├── .env                # YOUR API KEY (edit this!)
+├── build.py           # Build script for .exe
+├── build.bat          # Windows batch build script
+├── build_installer.bat # Create installer
+├── main.py            # Application entry point (prompts for API key)
+├── requirements.txt   # Python dependencies
+├── .env.example       # API key template
+├── .env               # YOUR API KEY (auto-created on first run)
 ├── api/
-│   └── flightaware.py  # FlightAware API client
+│   └── flightaware.py # FlightAware API client
 ├── models/
-│   └── flight.py       # Flight data model
+│   └── flight.py      # Flight data model
 └── ui/
     ├── flight_widget.py
     └── main_window.py
@@ -152,20 +125,16 @@ PlaneSpottr/
 
 | File | Size | Description |
 |------|------|-------------|
-| `PlaneSpottr.exe` | 8.4 MB | Standalone executable |
+| `PlaneSpottr.exe` | 8-12 MB | Standalone executable with setup dialog |
 | `README.md` | - | This documentation |
 | `.env.example` | - | API key template |
 | `LICENSE` | - | MIT License |
-| `CHANGELOG.md` | - | Release notes |
 
 ## How to Share the App
 
-1. Copy `PlaneSpottr.exe` to a USB drive or cloud folder
-2. Share the `.env` template with users who need to set up their API key
-3. Users just need to:
-   - Copy `.env.example` to `.env`
-   - Add their API key
-   - Double-click to run
+1. **Build** the executable (`python build.py`)
+2. **Copy** `PlaneSpottr.exe` to a USB drive or cloud folder
+3. **Share** the file - no Python installation needed!
 
 ## FAQ
 
@@ -173,13 +142,16 @@ PlaneSpottr/
 A: Yes! Use `PlaneSpottr.exe` - it includes all Python dependencies.
 
 **Q: What is an .env file?**  
-A: It's a configuration file that stores your API key. Create it once and reuse.
+A: It's automatically created on first run to store your API key.
 
 **Q: Why do I need an API key?**  
-A: FlightAware limits API access. The key identifies you for tracking flights.
+A: FlightAware requires authentication. Get a free key in 30 seconds.
 
 **Q: The app won't start. What should I do?**  
-A: Make sure the `.env` file exists and has your API key set correctly.
+A: First run will show a setup dialog. Enter your API key and click "Save".
+
+**Q: Can I share the app with friends?**  
+A: Yes! Just share the `.exe` file. Each user needs their own API key.
 
 ## License
 
