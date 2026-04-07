@@ -1,19 +1,21 @@
 import sys
 import os
+import json
 
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# Fix: Import QLabel BEFORE defining QSettings class
 from PyQt6.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton,
     QScrollArea, QFrame, QGridLayout, QToolBar, QStatusBar, QComboBox,
     QDialog, QFormLayout, QLineEdit, QSpinBox,
 )
-import json
-import os
+
+# Simple settings manager (don't name it QSettings to avoid import conflicts)
 
 
-class Settings:
+class SettingsManager:
     """Simple settings manager using JSON file."""
 
     def __init__(self):
@@ -48,10 +50,9 @@ class Settings:
         self._save()
 
     def __repr__(self):
-        return f"Settings({self._settings!r})"
+        return f"SettingsManager({self._settings!r})"
 
 
-QSettings = Settings  # For compatibility
 from PyQt6.QtGui import QAction, QKeySequence, QFont, QPixmap
 from PyQt6.QtCore import Qt, QTimer
 from api.flightaware import FlightAwareAPI
@@ -59,8 +60,8 @@ from models.flight import Flight
 from ui.flight_widget import FlightWidget
 
 
-class SettingsDialog(QDialog):
-    """Dialog for application settings."""
+class SettingsDialogAPI(QDialog):
+    """Dialog for application settings (in main_window.py)."""
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -115,7 +116,7 @@ class MainWindow(QMainWindow):
     def __init__(self, flight_api: FlightAwareAPI, parent=None):
         super().__init__(parent)
         self.flight_api = flight_api
-        self.settings = QSettings()
+        self.settings = SettingsManager()
         self.refresh_timer = QTimer()
         self.refresh_timer.timeout.connect(self.refresh_flights)
 
@@ -198,7 +199,7 @@ class MainWindow(QMainWindow):
 
     def show_settings(self):
         """Show settings dialog."""
-        dialog = SettingsDialog(self)
+        dialog = SettingsDialogAPI(self)
         result = dialog.exec()
         if result == 1:  # Accepted
             values = dialog.get_values()
